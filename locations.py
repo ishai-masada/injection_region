@@ -1,12 +1,13 @@
 import pandas
+import matplotlib.pyplot as plt
 
 # Read in the CSV file with the spatial coordinates that make up the airfoil
 coordinates = pandas.read_csv("export.csv")
 
 # Separate the coordinates into x, y, and z values
-x_coord = coordinates["x"]
-y_coord = coordinates["y"]
-z_coord = coordinates["z"]
+x_coord = list(coordinates["x"])
+y_coord = list(coordinates["y"])
+z_coord = list(coordinates["z"])
 
 # Define the number of holes in a row
 num_holes = 20
@@ -15,9 +16,9 @@ num_holes = 20
 x_locs = list(x_coord)[0::num_holes]
 
 # Define the common y-coordinate
-y_fraction = 0.9
-y_loc = list(y_coord)[int(y_fraction * len(y_coord))]
+z_fraction = 0.9
+z_loc = list(z_coord)[int(z_fraction * len(z_coord))]
 
-sorted_y = coordinates[coordinates['y'] == y_loc]
+sorted_z = coordinates[coordinates['z'] == z_loc]
 
-print(len(sorted_y))
+#print(z_loc)

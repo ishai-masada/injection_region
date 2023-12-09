@@ -6,13 +6,13 @@
 
 - Find the x-coordinates of the holes
 
-- Define the common y-coordinate
+- Define the common z-coordinate
     - Define fraction
-    - Index the y-coordinates by the fraction of number of y-values
+    - Index the z-coordinates by the fraction of number of z-values
 
-- Find the z-coordinates corresponding to the x-values and the common y-value
+- Find the y-coordinates corresponding to the x-values and the common z-value
 
-- Take either the top or bottom z-coordinate value (determined by the x-coordinate and the y-coordinate) as the common value
-    - Either the larger z-value will be the pressure side or the suction side of the blade
+- Take either the top or bottom y-coordinate value (determined by the x-coordinate and the z-coordinate) as the common value
+    - Either the larger y-value will be the pressure side or the suction side of the blade
 
 - Create a new .csv File and write the coordinates to that file

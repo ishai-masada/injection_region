@@ -1,6 +1,7 @@
-- Import Pandas
+- Read in the coordinates using "with open() as f"
+    - Split the data by line
 
-- Read csv file using .read_csv() method into a dataframe
+- Iterate through each line and separate the coordinates into lists 
 
 - Define the number of holes desired along the x-axis
 
@@ -16,3 +17,4 @@
     - Either the larger y-value will be the pressure side or the suction side of the blade
 
 - Create a new .csv File and write the coordinates to that file
+    - This file will be used as the injection regions csv

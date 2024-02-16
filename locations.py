@@ -1,6 +1,7 @@
+import os
 import csv
 
-# Read in the airfoil coordinates from the text file
+# Read in the coordinates from the text file
 with open('s1 blade.txt', 'r') as f:
     coordinates = f.read().strip().splitlines()
 
@@ -24,19 +25,19 @@ num_holes = 20
 interval = 20
 
 # Define the middle index to obtain the point at the middle of the blade
-mid_idx = int(len(coordinates) / 2)
+middle_idx = int(len(coordinates) / 2)
 
 # Find the indices above and below the middle point
-upper_portion = range(mid_idx, mid_idx + (num_holes * interval) + interval, interval)
-lower_portion = range(mid_idx, mid_idx - ((num_holes * interval) + interval), -interval)
+upper_idx = range(middle_idx, middle_idx + (num_holes * interval) + interval, interval)
+lower_idx = range(middle_idx, middle_idx - ((num_holes * interval) + interval), -interval)
 
 
 # Sort the x, y, and z values in ascending order
 x_values = list(x_coords.values())
 y_values = list(y_coords.values())
 z_values = list(z_coords.values())
-x_values.sort()
-y_values.sort()
+#x_values.sort()
+#y_values.sort()
 z_values.sort()
 
 # List for coordinate storage
@@ -45,22 +46,39 @@ y_points = []
 z_points = []
 
 # Add each value to its corresponding coordinate axis
-for idx in lower_portion:
+for idx in lower_idx:
     x_points.append(x_values[idx])
     y_points.append(y_values[idx])
     z_points.append(z_values[idx])
-for idx in upper_portion:
+for idx in upper_idx:
     x_points.append(x_values[idx])
     y_points.append(y_values[idx])
     z_points.append(z_values[idx])
 
+# Match the x, y, and z coordinates with each other
 push_coordinates = tuple(zip(x_points, y_points, z_points))
 
-# Write the injection locations to a file
-with open('injection regions.csv', 'w', newline='') as csvfile:
-    coord_writer = csv.writer(csvfile, delimiter=',')
-    for point in push_coordinates:
-        coord_writer.writerow([point[0]])
-        coord_writer.writerow([point[1]])
-        coord_writer.writerow([point[2]])
+'''
+Write the injection locations to a file
+'''
 
+filename = 'injection regions.csv'
+
+# Erase the contents of the file
+open(filename, 'w').close()
+
+# Open the file to use csv module
+with open(filename, 'w', newline='\n') as csvfile:
+    coord_writer = csv.writer(csvfile, delimiter=',', lineterminator='\n')
+
+    # File Format Requirements
+    csvfile.write('[Name]\nS1 Blade\n\n')
+    csvfile.write('[Spatial Fields]\n')
+    coord_writer.writerow(['X', 'Y', 'Z'])
+    csvfile.write('\n[Data]\n')
+    coord_writer.writerow(['X[m]', 'Y[m]', 'Z[m]'])
+    csvfile.write('\n')
+
+    # Write each set of coordinates as a row in the file
+    for point in push_coordinates:
+        coord_writer.writerow([point[0], point[1], point[2]])

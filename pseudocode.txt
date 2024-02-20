@@ -3,18 +3,20 @@
 
 - Iterate through each line and separate the coordinates into lists 
 
-- Define the number of holes desired along the x-axis
+- Add each coordinate and its corresponding index to dictionaries
 
-- Find the x-coordinates of the holes
+- Define the number of holes in a row and the interval of coordinates between them
 
-- Define the common z-coordinate
-    - Define fraction
-    - Index the z-coordinates by the fraction of number of z-values
+- Sort the z-values of the z-dictionary in ascending order
 
-- Find the y-coordinates corresponding to the x-values and the common z-value
+- Find the middle z index
 
-- Take either the top or bottom y-coordinate value (determined by the x-coordinate and the z-coordinate) as the common value
-    - Either the larger y-value will be the pressure side or the suction side of the blade
+- Find the minimum and maximum indices
+
+- Find the z-coordinates given by the indices (should be separated by the defined interval)
+
+- Iterate through the z-points
+    - Find the x- and y-coordinates that correspond to each z-point
 
 - Create a new .csv File and write the coordinates to that file
     - This file will be used as the injection regions csv

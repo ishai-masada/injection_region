@@ -24,43 +24,42 @@ for idx, line in enumerate(coordinates):
 num_holes = 20
 interval = 20
 
-# Define the middle index to obtain the point at the middle of the blade
-middle_idx = int(len(coordinates) / 2)
-
-# Find the indices above and below the middle point
-upper_idx = range(middle_idx, middle_idx + (num_holes * interval) + interval, interval)
-lower_idx = range(middle_idx, middle_idx - ((num_holes * interval) + interval), -interval)
-
-
-# Sort the x, y, and z values in ascending order
+# Sort the z values in ascending order
 x_values = list(x_coords.values())
 y_values = list(y_coords.values())
 z_values = list(z_coords.values())
-#x_values.sort()
-#y_values.sort()
 z_values.sort()
 
-# List for coordinate storage
+# Find the middle z index of the blade 
+middle_idx = int(len(z_values) / 2)
+
+# Find the minimum and maximum indices
+lower_idx = middle_idx - ((num_holes * interval) + interval)
+upper_idx = middle_idx + (num_holes * interval) + interval
+
+'''
+List Slice: [START: END: INTERVAL]
+'''
+# Find the z coordinates given by the indices
+z_points = z_values[lower_idx: upper_idx: interval]
+
+# Lists for coordinate storage
 x_points = []
 y_points = []
-z_points = []
 
 # Add each value to its corresponding coordinate axis
-for idx in lower_idx:
-    x_points.append(x_values[idx])
-    y_points.append(y_values[idx])
-    z_points.append(z_values[idx])
-for idx in upper_idx:
-    x_points.append(x_values[idx])
-    y_points.append(y_values[idx])
-    z_points.append(z_values[idx])
-
-# Match the x, y, and z coordinates with each other
-push_coordinates = tuple(zip(x_points, y_points, z_points))
+for z_point in z_points:
+    # Adjust to meters
+    x_points.append(x_values[z_values.index(z_point)] / 10)
+    y_points.append(y_values[z_values.index(z_point)] / 10)
 
 '''
 Write the injection locations to a file
+
+NOTE: Code works. Don't change it.
 '''
+# Match the x, y, and z coordinates with each other
+push_coordinates = tuple(zip(x_points, y_points, z_points))
 
 filename = 'injection regions.csv'
 

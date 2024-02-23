@@ -3,11 +3,11 @@
 
 - Iterate through each line and separate the coordinates into lists 
 
-- Add each coordinate and its corresponding index to dictionaries
+- Add each coordinate to axis defined lists
 
 - Define the number of holes in a row and the interval of coordinates between them
 
-- Sort the z-values of the z-dictionary in ascending order
+- Sort the z-values in ascending order
 
 - Find the middle z index
 
